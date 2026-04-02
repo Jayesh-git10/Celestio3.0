@@ -49,7 +49,7 @@ export default function Countdown() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 + idx * 0.1, duration: 0.8 }}
-          className="relative group lg:w-[160px] w-[75px] aspect-square"
+          className="relative group lg:w-[160px] w-[75px] aspect-square transform-gpu will-change-transform"
         >
           {/* 🛸 High-Density Space Box */}
           <div className="w-full h-full glass-panel p-2 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-3xl flex flex-col items-center justify-center shadow-2xl group-hover:border-starlight-cyan/50 transition-all duration-500">

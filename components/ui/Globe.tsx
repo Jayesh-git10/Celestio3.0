@@ -61,14 +61,14 @@ export default function GlobeThreeJS() {
     // ──────────────────────────────────────────────
     // Interaction Handlers
     // ──────────────────────────────────────────────
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       mouse.current.x = x;
       mouse.current.y = y;
     };
-    container.addEventListener("mousemove", onMouseMove);
+    container.addEventListener("pointermove", onPointerMove);
 
     // ──────────────────────────────────────────────
     // 1. Atmosphere
@@ -212,12 +212,12 @@ export default function GlobeThreeJS() {
     const animate = () => {
       raf = requestAnimationFrame(animate);
       
-      const parallaxFactor = 0.5;
+      const parallaxFactor = 1.2;
       const finalTargetX = targetRotation.current.x - (mouse.current.y * parallaxFactor);
       const finalTargetY = targetRotation.current.y + (mouse.current.x * parallaxFactor);
       
-      group.rotation.x += (finalTargetX - group.rotation.x) * 0.05;
-      group.rotation.y += (finalTargetY - group.rotation.y) * 0.05;
+      group.rotation.x += (finalTargetX - group.rotation.x) * 0.08;
+      group.rotation.y += (finalTargetY - group.rotation.y) * 0.08;
 
       pulseScale += 0.015 * pulsDir;
       if (pulseScale > 1.8 || pulseScale < 1.0) pulsDir *= -1;
@@ -231,7 +231,7 @@ export default function GlobeThreeJS() {
       cancelAnimationFrame(raf);
       renderer.dispose();
       window.removeEventListener("resize", updateSize);
-      container.removeEventListener("mousemove", onMouseMove);
+      container.removeEventListener("pointermove", onPointerMove);
       if (mountRef.current?.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);
       }
@@ -239,7 +239,7 @@ export default function GlobeThreeJS() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full aspect-square flex items-center justify-center max-w-[500px] mx-auto cursor-crosshair">
+    <div ref={containerRef} className="relative w-full h-full aspect-square flex items-center justify-center max-w-[500px] mx-auto cursor-crosshair touch-none">
       <div ref={mountRef} className="w-full h-full" />
       <div className="absolute bottom-4 right-4 md:bottom-8 md:right-0 glass-panel px-3 py-1.5 md:px-5 md:py-3 border border-orange-500/30 shadow-[0_0_20px_rgba(255,85,0,0.3)] pointer-events-none transform scale-75 md:scale-100 origin-bottom-right">
         <p className="text-orange-400 font-mono text-[8px] md:text-xs tracking-widest font-bold uppercase">📡 23.34°N · 85.30°E</p>

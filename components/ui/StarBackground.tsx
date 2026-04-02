@@ -9,13 +9,15 @@ import * as random from "maath/random/dist/maath-random.esm";
 function StarParticles(props: any) {
   const ref = useRef<any>(null);
   
-  // Use 6000 to ensure a multiple of 3 (2000 points exactly)
-  const sphere = useMemo(() => {
+  const layer1 = useMemo(() => {
     const data = random.inSphere(new Float32Array(6000), { radius: 1.2 });
-    // Sanity check: Ensure no NaNs remain in the buffer
-    for (let i = 0; i < data.length; i++) {
-       if (isNaN(data[i])) data[i] = 0;
-    }
+    for (let i = 0; i < data.length; i++) if (isNaN(data[i])) data[i] = 0;
+    return data;
+  }, []);
+
+  const layer2 = useMemo(() => {
+    const data = random.inSphere(new Float32Array(3000), { radius: 1.5 });
+    for (let i = 0; i < data.length; i++) if (isNaN(data[i])) data[i] = 0;
     return data;
   }, []);
 
@@ -25,29 +27,29 @@ function StarParticles(props: any) {
     ref.current.rotation.y -= delta / 15;
     
     const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-    ref.current.position.y = -scrollY * 0.0002;
+    ref.current.position.y = -scrollY * 0.00015;
   });
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
+      <Points ref={ref} positions={layer1} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
           color="#00FFFF"
-          size={0.002}
+          size={0.0025}
           sizeAttenuation={true}
           depthWrite={false}
         />
       </Points>
       {/* Second layer for depth */}
-      <Points positions={sphere.slice().reverse()} stride={3} frustumCulled={false} {...props}>
+      <Points positions={layer2} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
           color="#7928CA"
-          size={0.003}
+          size={0.004}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.6}
+          opacity={0.4}
         />
       </Points>
     </group>

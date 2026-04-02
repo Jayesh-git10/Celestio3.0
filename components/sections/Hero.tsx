@@ -39,8 +39,8 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="mb-6 md:mb-8 relative"
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+            className="mb-6 md:mb-8 relative transform-gpu will-change-transform"
           >
             {/* Glow under text */}
             <div className="absolute inset-0 bg-nebula-core/20 blur-[30px] md:blur-[50px] mix-blend-screen opacity-50 z-[-1]" />
@@ -90,8 +90,8 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.7, x: 20 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1.4, ease: "circOut", delay: 0.4 }}
-          className="flex-1 flex justify-center items-center relative aspect-square w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px] order-2"
+          transition={{ duration: 1.8, ease: [0.19, 1, 0.22, 1], delay: 0.4 }}
+          className="flex-1 flex justify-center items-center relative aspect-square w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[500px] order-2 transform-gpu will-change-transform"
         >
           {/* Intense Glow under Globe */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] md:w-[350px] h-[220px] md:h-[350px] bg-starlight-cyan/25 rounded-full blur-[60px] md:blur-[90px] mix-blend-screen z-0 animate-pulse-slow" />
