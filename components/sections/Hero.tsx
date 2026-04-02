@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion";
 import GlobeThreeJS from "@/components/ui/Globe";
+import Countdown from "@/components/ui/Countdown";
 import { useSpaceSound } from "@/hooks/use-space-sound";
 
 export default function Hero() {
   const { playHover, playClick } = useSpaceSound();
 
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-28 md:pt-20">
+    <section id="home" className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-28 md:pt-20">
       
       {/* ── Nebula Portal Backdrop ── */}
       <div className="absolute inset-x-0 h-full w-full pointer-events-none z-0">
@@ -82,6 +83,7 @@ export default function Hero() {
               Explore Timeline ↓
             </button>
           </motion.div>
+
         </div>
 
         {/* ── Globe Content: 3D Globe Core ── */}
@@ -101,6 +103,11 @@ export default function Hero() {
           <div className="absolute inset-0 border border-white/5 rounded-full z-0 scale-[1.3] animate-spin-slow pointer-events-none text-center lg:text-left" />
         </motion.div>
 
+      </div>
+
+      {/* ⚡ Cinematic Countdown (Centrally Aligned below the entire Hero/Globe row) */}
+      <div className="w-full relative z-10 flex justify-center mt-6 md:mt-12 pb-10">
+         <Countdown />
       </div>
     </section>
   );
