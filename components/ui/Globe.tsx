@@ -63,10 +63,8 @@ export default function GlobeThreeJS() {
     // ──────────────────────────────────────────────
     const onMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      // Normalize mouse coords (-0.5 to 0.5)
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      
       mouse.current.x = x;
       mouse.current.y = y;
     };
@@ -145,10 +143,17 @@ export default function GlobeThreeJS() {
     scene.add(pLight);
 
     // ──────────────────────────────────────────────
-    // 5. Dots
+    // 5. Instanced Dots (High-Performance Rendering)
     // ──────────────────────────────────────────────
+    const NUM_DOT_SAMPLES = 22000;
     const dotGeo = new THREE.CircleGeometry(0.006, 6);
-    const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+    const dotMat = new THREE.MeshBasicMaterial({ 
+      color: 0xffffff, 
+      side: THREE.DoubleSide, 
+      transparent: true, 
+      opacity: 0.85 
+    });
+
     const worldImg = new Image();
     worldImg.crossOrigin = "anonymous";
     worldImg.src = "https://cdn.jsdelivr.net/npm/three-globe@2.30.0/example/img/earth-dark.jpg";
@@ -157,36 +162,49 @@ export default function GlobeThreeJS() {
       cvs.width = 1024; cvs.height = 512;
       const ctx = cvs.getContext("2d")!; ctx.drawImage(worldImg, 0, 0, 1024, 512);
       const pixels = ctx.getImageData(0, 0, 1024, 512).data;
+      
       const brightness = (lat: number, lon: number): number => {
         const u = Math.floor(((lon + 180) / 360) * 1023);
         const v = Math.floor(((90 - lat) / 180) * 511);
         const i = (v * 1024 + u) * 4;
         return (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;
       };
-      const NUM_DOTS = 22000;
-      for (let i = 0; i < NUM_DOTS; i++) {
-        const phi = Math.acos(1 - (2 * i) / NUM_DOTS); const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-        const x = Math.sin(phi) * Math.cos(theta); const y = Math.cos(phi); const z = Math.sin(phi) * Math.sin(theta);
-        const lat = Math.asin(y) * (180 / Math.PI); const lon = Math.atan2(z, x) * (180 / Math.PI);
+
+      const validDots: {x:number, y:number, z:number}[] = [];
+      for (let i = 0; i < NUM_DOT_SAMPLES; i++) {
+        const phi = Math.acos(1 - (2 * i) / NUM_DOT_SAMPLES);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        const x = Math.sin(phi) * Math.cos(theta);
+        const y = Math.cos(phi);
+        const z = Math.sin(phi) * Math.sin(theta);
+        const lat = Math.asin(y) * (180 / Math.PI);
+        const lon = Math.atan2(z, x) * (180 / Math.PI);
         if (brightness(lat, lon) > 18) {
-          const dot = new THREE.Mesh(dotGeo, dotMat);
-          dot.position.set(x * R, y * R, z * R);
-          dot.lookAt(new THREE.Vector3(0, 0, 0));
-          group.add(dot);
+          validDots.push({ x: x * R, y: y * R, z: z * R });
         }
       }
+
+      // Create ONE single InstancedMesh instead of thousands of individual meshes
+      const instancedDots = new THREE.InstancedMesh(dotGeo, dotMat, validDots.length);
+      const dummy = new THREE.Object3D();
+
+      validDots.forEach((pos, i) => {
+        dummy.position.set(pos.x, pos.y, pos.z);
+        dummy.lookAt(new THREE.Vector3(0, 0, 0));
+        dummy.updateMatrix();
+        instancedDots.setMatrixAt(i, dummy.matrix);
+      });
+
+      group.add(instancedDots);
     };
 
     // ──────────────────────────────────────────────
-    // Initial Alignment (Center Ranchi)
-    // Ranchi is 85.3096 E, 23.3441 N
+    // Initial Alignment
     // ──────────────────────────────────────────────
     const initialRotationY = -(RANCHI_LON * Math.PI / 180) - 1.55;
-    const initialRotationX = -(RANCHI_LAT * Math.PI / 180) * 0.5; // Subtle upward tilt
+    const initialRotationX = -(RANCHI_LAT * Math.PI / 180) * 0.5;
     group.rotation.y = initialRotationY;
     group.rotation.x = initialRotationX;
-    
-    // Store as targets for interaction
     targetRotation.current = { x: initialRotationX, y: initialRotationY };
 
     let raf: number;
@@ -194,8 +212,6 @@ export default function GlobeThreeJS() {
     const animate = () => {
       raf = requestAnimationFrame(animate);
       
-      // Automatic rotation disabled! 
-      // Instead, we lerp to mouse position for parallax
       const parallaxFactor = 0.5;
       const finalTargetX = targetRotation.current.x - (mouse.current.y * parallaxFactor);
       const finalTargetY = targetRotation.current.y + (mouse.current.x * parallaxFactor);
