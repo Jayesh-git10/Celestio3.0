@@ -42,32 +42,32 @@ export default function Countdown() {
   ];
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 mt-10 md:mt-16 relative z-10 w-full mx-auto px-4">
+    <div className="flex flex-row justify-center items-center gap-2 md:gap-8 mt-10 md:mt-16 relative z-10 w-full mx-auto px-2">
       {timeUnits.map((unit, idx) => (
         <motion.div
           key={unit.label}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 + idx * 0.1, duration: 0.8 }}
-          className="relative group lg:w-[160px] w-[95px] aspect-square"
+          className="relative group lg:w-[160px] w-[75px] aspect-square"
         >
           {/* 🛸 High-Density Space Box */}
-          <div className="w-full h-full glass-panel p-4 md:p-8 rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-3xl flex flex-col items-center justify-center shadow-2xl group-hover:border-starlight-cyan/50 transition-all duration-500">
+          <div className="w-full h-full glass-panel p-2 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-3xl flex flex-col items-center justify-center shadow-2xl group-hover:border-starlight-cyan/50 transition-all duration-500">
             
             {/* Subtle Internal Glow */}
-            <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/5 to-transparent rounded-t-[2.5rem] pointer-events-none" />
+            <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/5 to-transparent rounded-t-2xl md:rounded-t-[2.5rem] pointer-events-none" />
             
             <div className="relative z-10 flex flex-col items-center justify-center">
               {/* Bold Cinematic Numerals */}
               <motion.span 
                 key={unit.value}
-                className="text-4xl md:text-6xl font-heading font-black text-white leading-none tracking-tighter mb-1 md:mb-3 select-none"
+                className="text-2xl md:text-6xl font-heading font-black text-white leading-none tracking-tighter mb-0.5 md:mb-3 select-none"
               >
                 {String(unit.value).padStart(2, "0")}
               </motion.span>
               
               {/* Thick High-Contrast Labels */}
-              <span className="text-[10px] md:text-xs font-sans font-black uppercase tracking-[0.25em] text-gray-400 group-hover:text-white transition-colors">
+              <span className="text-[8px] md:text-xs font-sans font-black uppercase tracking-[0.15em] md:tracking-[0.25em] text-gray-400 group-hover:text-white transition-colors">
                 {unit.label}
               </span>
             </div>
