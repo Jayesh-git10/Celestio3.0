@@ -43,7 +43,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="space-y-10 text-lg md:text-2xl text-gray-400 font-sans font-light leading-relaxed tracking-wide text-justify md:text-center mt-12 glass-panel p-10 md:p-16 relative overflow-hidden"
+          className="space-y-10 text-lg md:text-2xl text-gray-400 font-sans font-light leading-relaxed tracking-wide md:text-center mt-12 glass-panel p-10 md:p-16 relative overflow-hidden"
         >
           {/* Internal Glowing Lines */}
           <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-starlight-cyan/40 to-transparent" />

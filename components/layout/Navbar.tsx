@@ -15,10 +15,19 @@ export default function Navbar() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prevent scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
 
   const navLinks = [
     { name: "Home",        href: "/#home" },
@@ -34,17 +43,17 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-5"
+        scrolled ? "py-2 md:py-3" : "py-4 md:py-5"
       }`}
     >
       {/* ── Scroll Progress Bar ── */}
-      <motion.div className="scroll-progress" style={{ scaleX }} />
+      <motion.div className="scroll-progress h-[2px] md:h-[3px]" style={{ scaleX }} />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 relative z-50">
         <div
-          className={`flex items-center justify-between px-6 py-3 rounded-2xl transition-all duration-500 ${
-            scrolled
-              ? "glass-panel bg-[#030014]/70 backdrop-blur-xl border-white/10"
+          className={`flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl transition-all duration-500 ${
+            scrolled || isOpen
+              ? "glass-panel bg-[#030014]/80 backdrop-blur-xl border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
               : "bg-transparent border-transparent"
           }`}
         >
@@ -58,15 +67,15 @@ export default function Navbar() {
             <Image
                src="/logo.jpeg"
                alt="Celestio 3.0"
-               width={120}
-               height={48}
-               className="object-contain h-10 w-auto"
+               width={110}
+               height={44}
+               className="object-contain h-7 md:h-10 w-auto"
                priority
             />
           </a>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-sans font-medium text-gray-300">
+          <div className="hidden md:flex items-center gap-6 lg:gap-10 text-[13px] font-sans font-medium text-gray-300">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -82,7 +91,7 @@ export default function Navbar() {
             <button 
               onMouseEnter={playHover}
               onClick={playClick}
-              className="glass-button px-6 py-2.5 rounded-full text-white font-semibold hover:scale-105 transition-transform tracking-wide text-xs uppercase shadow-[0_0_15px_rgba(121,40,202,0.3)]"
+              className="glass-button px-6 py-2.5 rounded-full text-white font-semibold hover:scale-105 transition-transform tracking-wide text-[11px] uppercase shadow-[0_0_15px_rgba(121,40,202,0.3)]"
             >
               Register
             </button>
@@ -91,46 +100,67 @@ export default function Navbar() {
           {/* Mobile Toggle */}
           <button
             onMouseEnter={playHover}
-            className="md:hidden text-gray-300 hover:text-white transition-colors"
+            className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
             onClick={() => { setIsOpen(!isOpen); playClick(); }}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Backdrop & Dropdown */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -16 }}
-            className="absolute top-full left-0 w-full px-6 mt-2 md:hidden"
-          >
-            <div className="glass-panel bg-[#030014]/95 flex flex-col gap-6 p-8 rounded-2xl border-white/10 shadow-3xl">
-              <Image src="/logo.jpeg" alt="Celestio 3.0" width={140} height={56} className="object-contain" />
-              <hr className="border-white/10" />
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
+          <>
+            {/* Full screen blur backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-[#030014]/60 backdrop-blur-md z-40 md:hidden"
+            />
+
+            {/* Dropdown Menu */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98, y: -8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -8 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="absolute top-full left-0 w-full px-4 mt-2 md:hidden z-50"
+            >
+              <div className="glass-panel bg-[#030014]/90 flex flex-col gap-5 p-6 rounded-xl border-white/10 shadow-3xl overflow-hidden relative">
+                {/* Decorative side glow */}
+                <div className="absolute -right-10 top-0 w-20 h-full bg-nebula-core/10 blur-3xl pointer-events-none" />
+                
+                <Image src="/logo.jpeg" alt="Celestio 3.0" width={120} height={48} className="object-contain mb-2" />
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                
+                {navLinks.map((link, idx) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + idx * 0.05 }}
+                    onMouseEnter={playHover}
+                    onClick={() => { setIsOpen(false); playClick(); }}
+                    className="text-sm font-sans font-medium text-gray-300 hover:text-white transition-colors tracking-[0.2em] uppercase py-1"
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-2" />
+                <button 
                   onMouseEnter={playHover}
-                  onClick={() => { setIsOpen(false); playClick(); }}
-                  className="text-base font-sans font-medium text-gray-300 hover:text-white transition-colors tracking-wide"
+                  onClick={playClick}
+                  className="glass-button w-full py-4 rounded-xl text-white font-heading font-black tracking-[0.2em] uppercase text-[11px]"
                 >
-                  {link.name}
-                </a>
-              ))}
-              <button 
-                onMouseEnter={playHover}
-                onClick={playClick}
-                className="glass-button w-full py-4 rounded-full text-white font-semibold tracking-widest uppercase text-xs"
-              >
-                Register
-              </button>
-            </div>
-          </motion.div>
+                  Register Now
+                </button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
