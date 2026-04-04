@@ -18,7 +18,7 @@ const pastEvents = [
     title: "Quasar X AI",
     year: "2026",
     description: "Qusar x AI is a cutting-edge hackathon by IIIT Ranchi that brings together innovators to build impactful solutions at the intersection of artificial intelligence and real-world challenges.",
-    imgUrl: "/quasarxai.jpg",
+    imgUrl: "/quasarxai.JPG",
     driveUrl: "https://photos.app.goo.gl/ejeWU1XKsP4bU2YT7",
   },
   {
