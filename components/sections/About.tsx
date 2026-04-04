@@ -26,7 +26,7 @@ export default function About() {
            initial={{ opacity: 0, scale: 0.9, filter: "blur(12px)" }}
            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
            viewport={{ once: false, amount: 0.3 }}
-           transition={{ duration: 1.2, ease: "easeOut" }}
+           transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
            className="mb-14"
         >
           <h2 className="text-4xl md:text-7xl font-heading font-black mb-4 tracking-tighter text-white leading-tight uppercase">
@@ -42,8 +42,8 @@ export default function About() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="space-y-10 text-lg md:text-2xl text-gray-400 font-sans font-light leading-relaxed tracking-wide md:text-center mt-12 glass-panel p-10 md:p-16 relative overflow-hidden"
+          transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+          className="space-y-10 text-lg md:text-2xl text-gray-400 font-sans font-light leading-relaxed tracking-wide md:text-center mt-12 glass-panel p-10 md:p-16 relative overflow-hidden transform-gpu will-change-transform"
         >
           {/* Internal Glowing Lines */}
           <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-starlight-cyan/40 to-transparent" />

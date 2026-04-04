@@ -37,7 +37,7 @@ function TiltCard({ performer, index }: { performer: typeof performers[0], index
       initial={{ opacity: 0, y: 50, scale: 0.9, filter: "blur(10px)" }}
       whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
       viewport={{ once: false, amount: 0.2 }}
-      transition={{ duration: 0.8, delay: index * 0.15 }}
+      transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: index * 0.15 }}
       className="perspective-1000"
     >
       <motion.div
@@ -49,10 +49,14 @@ function TiltCard({ performer, index }: { performer: typeof performers[0], index
         style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
         className="relative h-[30rem] w-full rounded-2xl overflow-hidden glass-panel border-white/5 hover:border-starlight-cyan/40 hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-500 group cursor-pointer"
       >
-        <div 
-          className="absolute inset-0 bg-cover bg-center grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
+        <motion.div 
+          initial={{ filter: "grayscale(100%)", opacity: 0.4 }}
+          whileInView={{ filter: "grayscale(0%)", opacity: 1 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
           style={{ backgroundImage: `url(${performer.imgUrl})`, transform: "translateZ(20px)" }}
-        ></div>
+        />
         
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent group-hover:via-background/30 transition-all duration-500 z-10" />
 

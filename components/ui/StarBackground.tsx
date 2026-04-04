@@ -58,7 +58,7 @@ function StarParticles(props: any) {
 
 const StarBackground = () => (
   <div className="w-full h-auto fixed inset-0 z-[-1] pointer-events-none bg-background">
-    <Canvas camera={{ position: [0, 0, 1] }}>
+    <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 2]}>
       <Suspense fallback={null}>
         <StarParticles />
       </Suspense>

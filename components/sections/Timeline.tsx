@@ -68,7 +68,7 @@ export default function Timeline() {
                   initial={{ opacity: 0, x: idx % 2 === 0 ? 50 : -50, filter: "blur(10px)" }}
                   whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   viewport={{ once: false, amount: 0.5 }}
-                  transition={{ duration: 0.8, delay: 0.1 }}
+                  transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.1 }}
                   className="w-full md:w-[42%] pl-12 md:pl-0"
                 >
                   <div className={`glass-panel p-6 md:p-8 rounded-2xl border-white/5 hover:border-${event.color}/30 transition-all duration-500 group cursor-default relative overflow-hidden shadow-2xl`}>

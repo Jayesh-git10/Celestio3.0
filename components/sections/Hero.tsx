@@ -27,7 +27,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
             className="px-4 py-1.5 md:px-6 md:py-2 rounded-full border border-nebula-core/30 bg-nebula-core/5 backdrop-blur-xl mb-8 md:mb-10 w-max shadow-[0_0_20px_rgba(121,40,202,0.15)]"
           >
             <span className="text-starlight-cyan font-logo text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
@@ -55,7 +55,7 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.6 }}
             className="text-gray-400 font-sans text-xs md:text-base tracking-[0.2em] md:tracking-[0.35em] uppercase mb-10 md:mb-12 leading-relaxed text-center lg:text-left"
           >
             WHERE <span className="text-white font-black italic">TECHNOLOGY</span> <br className="md:hidden" /> DANCES WITH <span className="text-white font-black italic">CULTURE</span>.
@@ -65,7 +65,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto"
           >
             <button 
