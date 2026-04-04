@@ -5,9 +5,9 @@ import React, { useRef } from "react";
 import { useSpaceSound } from "@/hooks/use-space-sound";
 
 const performers = [
-  { name: "Neon Matrix", type: "EDM Artist", year: "2024", imgUrl: "https://images.unsplash.com/photo-1574390638661-0f7f2b930810?auto=format&fit=crop&q=80&w=800" },
-  { name: "Cyber Punks", type: "Rock Band", year: "2023", imgUrl: "https://images.unsplash.com/photo-1546707011-82928527a051?auto=format&fit=crop&q=80&w=800" },
-  { name: "Aria Nova", type: "Pop Star", year: "2022", imgUrl: "https://images.unsplash.com/photo-1502519144081-acca18599776?auto=format&fit=crop&q=80&w=800" }
+  { name: "Anshika Pandey", type: "Singer", year: "2025", imgUrl: "/Anshika-pandey.jpg" },
+  { name: "Ablaze Band", type: "Rock Band", year: "2025", imgUrl: "/ablaze.jpg" },
+  { name: "DJ Tracer", type: "DJ", year: "2025", imgUrl: "/djtracer.JPG" }
 ];
 
 function TiltCard({ performer, index }: { performer: typeof performers[0], index: number }) {
@@ -50,7 +50,7 @@ function TiltCard({ performer, index }: { performer: typeof performers[0], index
         className="relative h-[30rem] w-full rounded-2xl overflow-hidden glass-panel border-white/5 hover:border-starlight-cyan/40 hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-500 group cursor-pointer"
       >
         <div 
-          className="absolute inset-0 bg-cover bg-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700 group-hover:scale-110"
+          className="absolute inset-0 bg-cover bg-center grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
           style={{ backgroundImage: `url(${performer.imgUrl})`, transform: "translateZ(20px)" }}
         ></div>
         

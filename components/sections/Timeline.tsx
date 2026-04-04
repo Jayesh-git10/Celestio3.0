@@ -4,11 +4,9 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 
 const events = [
-  { time: "10:00 AM", title: "Arrival of Celestials", desc: "Check-in and registration opening for all participants.", color: "starlight-cyan" },
-  { time: "11:30 AM", title: "Nebula Keynote", desc: "Official opening ceremony with a projection-mapped show.", color: "nebula-core" },
-  { time: "01:00 PM", title: "Gravity Lunch", desc: "Networking session over a zero-gravity theme lunch.", color: "starlight-cyan" },
-  { time: "03:00 PM", title: "Binary Battles", desc: "High-stakes e-sports and coding competitions begin.", color: "nebula-core" },
-  { time: "06:00 PM", title: "Supernova Night", desc: "Main stage performances featuring global top artists.", color: "starlight-cyan" }
+  { time: "Day 1", title: "Technical Fiesta", desc: "Arcanum Event , AI/ML Contest , CP Rumble , Code Hurdel", color: "starlight-cyan" },
+  { time: "Day 2", title: "Cultural Night I", desc: "Lit Club Event , Opening Ceremony , Alfaaz Club Event , Nrityarashi Dance Event , Flashmob , Buffer Time , Main artist program", color: "nebula-core" },
+  { time: "Day 3", title: "Cultural Night II", desc: "Saaz Club Event , Abhinay Club Event , Estillio Ramp Walk Event , Main Artist Performances , Photography and treasure Events", color: "starlight-cyan" },
 ];
 
 export default function Timeline() {

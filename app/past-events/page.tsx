@@ -8,28 +8,32 @@ import { useSpaceSound } from "@/hooks/use-space-sound";
 
 const pastEvents = [
   {
-    title: "Celestio 1.0: The Inception",
-    year: "2023",
-    description: "The spark that started it all. A pioneering journey that united over 2,000 students in a celebration of technology and culture.",
-    imgUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1200",
+    title: "Yantra",
+    year: "2026",
+    description: "Yantra is an IoT-powered fest that brings innovation to life by seamlessly connecting technology, creativity, and real-world solutions.",
+    imgUrl: "/yantra.jpg",
+    driveUrl: "https://photos.app.goo.gl/A7HEXYA4nntUE1pu7",
   },
   {
-    title: "Celestio 2.0: Cyber Pulse",
-    year: "2024",
-    description: "Raising the bar with cutting-edge tech battles and a high-octane EDM night that vibrated through the digital nebula.",
-    imgUrl: "https://images.unsplash.com/photo-1514525253361-b83f859b73c0?auto=format&fit=crop&q=80&w=1200",
+    title: "Quasar X AI",
+    year: "2026",
+    description: "Qusar x AI is a cutting-edge hackathon by IIIT Ranchi that brings together innovators to build impactful solutions at the intersection of artificial intelligence and real-world challenges.",
+    imgUrl: "/quasarxai.jpg",
+    driveUrl: "https://photos.app.goo.gl/ejeWU1XKsP4bU2YT7",
   },
   {
-    title: "Digital Genesis",
-    year: "2023",
+    title: "Celestio 2.0",
+    year: "2025",
     description: "A special edition focused on the emergence of AI and blockchain, featuring world-class hackathons and industry experts.",
-    imgUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200",
+    imgUrl: "/celestio2.0.jpg",
+    driveUrl: "https://photos.app.goo.gl/AznWayxvJkoR5dpF8",
   },
   {
-    title: "Cosmic Beats Night",
-    year: "2024",
-    description: "An ethereal musical experience under the stars, blending synthetic rhythms with traditional melodies.",
-    imgUrl: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=1200",
+    title: "Quasar 2.0",
+    year: "2025",
+    description: "Quasar 2.0 is an electrifying hackathon that brings together passionate innovators to build cutting-edge solutions, push technological boundaries, and turn bold ideas into reality.",
+    imgUrl: "/qusar2.0.jpg",
+    driveUrl: "https://photos.app.goo.gl/AznWayxvJkoR5dpF8",
   },
 ];
 
@@ -98,14 +102,47 @@ export default function PastEventsPage() {
                 </div>
 
                 {/* Description below image */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="mt-6 text-gray-400 font-sans text-sm leading-relaxed tracking-wider uppercase"
-                >
-                  {event.description}
-                </motion.p>
+                <div className="mt-6 space-y-6">
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-gray-400 font-sans text-sm leading-relaxed tracking-wider uppercase"
+                  >
+                    {event.description}
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <a
+                      href={event.driveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onMouseEnter={playHover}
+                      onClick={playClick}
+                      className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 glass-panel text-starlight-cyan font-sans text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/5 hover:border-starlight-cyan/40 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)] transition-all group/btn"
+                    >
+                      View Memories
+                      <svg 
+                        width="12" 
+                        height="12" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="3" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </a>
+                  </motion.div>
+                </div>
               </motion.div>
             ))}
           </div>

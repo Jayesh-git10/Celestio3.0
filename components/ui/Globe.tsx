@@ -22,8 +22,9 @@ export default function GlobeThreeJS() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Interaction state
-  const mouse = useRef({ x: 0, y: 0 });
-  const targetRotation = useRef({ x: 0, y: 0 });
+  const isDragging = useRef(false);
+  const pointerPos = useRef({ x: 0, y: 0 });
+  const rotationVelocity = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!mountRef.current || !containerRef.current) return;
@@ -61,13 +62,33 @@ export default function GlobeThreeJS() {
     // ──────────────────────────────────────────────
     // Interaction Handlers
     // ──────────────────────────────────────────────
-    const onPointerMove = (e: PointerEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouse.current.x = x;
-      mouse.current.y = y;
+    const onPointerDown = (e: PointerEvent) => {
+      isDragging.current = true;
+      pointerPos.current = { x: e.clientX, y: e.clientY };
+      container.setPointerCapture(e.pointerId);
     };
+
+    const onPointerUp = (e: PointerEvent) => {
+      isDragging.current = false;
+      container.releasePointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!isDragging.current) return;
+      
+      const deltaX = e.clientX - pointerPos.current.x;
+      const deltaY = e.clientY - pointerPos.current.y;
+      
+      const sensitivity = 0.005;
+      rotationVelocity.current.y = deltaX * sensitivity;
+      rotationVelocity.current.x = deltaY * sensitivity;
+      
+      pointerPos.current = { x: e.clientX, y: e.clientY };
+    };
+
+    container.addEventListener("pointerdown", onPointerDown);
+    container.addEventListener("pointerup", onPointerUp);
+    container.addEventListener("pointercancel", onPointerUp);
     container.addEventListener("pointermove", onPointerMove);
 
     // ──────────────────────────────────────────────
@@ -205,19 +226,24 @@ export default function GlobeThreeJS() {
     const initialRotationX = -(RANCHI_LAT * Math.PI / 180) * 0.5;
     group.rotation.y = initialRotationY;
     group.rotation.x = initialRotationX;
-    targetRotation.current = { x: initialRotationX, y: initialRotationY };
 
     let raf: number;
     let pulseScale = 1; let pulsDir = 1;
     const animate = () => {
       raf = requestAnimationFrame(animate);
       
-      const parallaxFactor = 1.2;
-      const finalTargetX = targetRotation.current.x - (mouse.current.y * parallaxFactor);
-      const finalTargetY = targetRotation.current.y + (mouse.current.x * parallaxFactor);
-      
-      group.rotation.x += (finalTargetX - group.rotation.x) * 0.08;
-      group.rotation.y += (finalTargetY - group.rotation.y) * 0.08;
+      group.rotation.y += rotationVelocity.current.y;
+      group.rotation.x += rotationVelocity.current.x;
+
+      // Auto-rotation when not dragging
+      if (!isDragging.current) {
+        group.rotation.y += 0.003;
+        rotationVelocity.current.y *= 0.95;
+        rotationVelocity.current.x *= 0.95;
+      }
+
+      // Constrain vertical rotation
+      group.rotation.x = Math.max(-1.1, Math.min(1.1, group.rotation.x));
 
       pulseScale += 0.015 * pulsDir;
       if (pulseScale > 1.8 || pulseScale < 1.0) pulsDir *= -1;
@@ -231,6 +257,9 @@ export default function GlobeThreeJS() {
       cancelAnimationFrame(raf);
       renderer.dispose();
       window.removeEventListener("resize", updateSize);
+      container.removeEventListener("pointerdown", onPointerDown);
+      container.removeEventListener("pointerup", onPointerUp);
+      container.removeEventListener("pointercancel", onPointerUp);
       container.removeEventListener("pointermove", onPointerMove);
       if (mountRef.current?.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);

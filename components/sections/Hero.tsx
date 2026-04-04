@@ -71,14 +71,7 @@ export default function Hero() {
             <button 
               onMouseEnter={playHover}
               onClick={playClick}
-              className="glass-button px-8 py-4 md:px-10 md:py-5 rounded-full text-white font-heading font-black hover:scale-105 transition-all shadow-[0_0_30px_rgba(121,40,202,0.4)] border-white/20"
-            >
-              <span className="tracking-[0.2em] uppercase text-[10px] md:text-xs">Initialize Sequence</span>
-            </button>
-            <button 
-              onMouseEnter={playHover}
-              onClick={playClick}
-              className="px-8 py-4 md:px-10 md:py-5 rounded-full text-[#b9d8ff] font-heading font-bold hover:text-white transition-all flex items-center justify-center gap-2 border border-white/10 hover:border-white/40 tracking-[0.2em] uppercase text-[10px] md:text-xs glass-panel"
+              className="px-10 py-5 rounded-full text-[#b9d8ff] font-heading font-bold hover:text-white transition-all flex items-center justify-center gap-2 border border-white/10 hover:border-white/40 tracking-[0.2em] uppercase text-[10px] md:text-xs glass-panel shadow-[0_0_30px_rgba(121,40,202,0.2)]"
             >
               Explore Timeline ↓
             </button>

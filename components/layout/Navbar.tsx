@@ -88,13 +88,6 @@ export default function Navbar() {
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-starlight-cyan group-hover:w-full transition-all duration-300 shadow-[0_0_8px_#00FFFF]" />
               </a>
             ))}
-            <button 
-              onMouseEnter={playHover}
-              onClick={playClick}
-              className="glass-button px-6 py-2.5 rounded-full text-white font-semibold hover:scale-105 transition-transform tracking-wide text-[11px] uppercase shadow-[0_0_15px_rgba(121,40,202,0.3)]"
-            >
-              Register
-            </button>
           </div>
 
           {/* Mobile Toggle */}
@@ -151,13 +144,6 @@ export default function Navbar() {
                   </motion.a>
                 ))}
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-2" />
-                <button 
-                  onMouseEnter={playHover}
-                  onClick={playClick}
-                  className="glass-button w-full py-4 rounded-xl text-white font-heading font-black tracking-[0.2em] uppercase text-[11px]"
-                >
-                  Register Now
-                </button>
               </div>
             </motion.div>
           </>

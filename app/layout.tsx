@@ -18,6 +18,9 @@ const josefinSans = Josefin_Sans({
 export const metadata: Metadata = {
   title: "Celestio 3.0 | Where Technology Dances With Culture",
   description: "The official annual fest of IIIT Ranchi.",
+  icons: {
+    icon: "/logo(1).png",
+  },
 };
 
 export default function RootLayout({

@@ -10,8 +10,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 2.5,
+      lerp: 0.1,
+      syncTouch: true,
       infinite: false,
     });
 
