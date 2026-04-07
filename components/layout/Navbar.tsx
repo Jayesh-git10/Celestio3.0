@@ -66,11 +66,11 @@ export default function Navbar() {
             className="block hover:opacity-80 transition-opacity"
           >
             <Image
-               src="/logo.jpeg"
+               src="/logo(2).png"
                alt="Celestio 3.0"
-               width={110}
-               height={44}
-               className="object-contain h-7 md:h-10 w-auto"
+               width={220}
+               height={88}
+               className="object-contain h-7 md:h-10 w-auto transform scale-[2] origin-left ml-2 md:ml-4"
                priority
             />
           </a>
@@ -121,11 +121,11 @@ export default function Navbar() {
             {/* Menu Header */}
             <div className="flex items-center justify-between p-6 relative z-10">
               <Image 
-                src="/logo.jpeg" 
+                src="/logo(2).png" 
                 alt="Celestio 3.0" 
-                width={100} 
-                height={40} 
-                className="object-contain h-8 w-auto" 
+                width={200} 
+                height={80} 
+                className="object-contain h-8 w-auto transform scale-[2] origin-left ml-4" 
               />
               <button
                 onClick={() => { setIsOpen(false); playClick(); }}

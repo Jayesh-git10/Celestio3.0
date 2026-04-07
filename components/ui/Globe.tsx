@@ -40,7 +40,11 @@ export default function GlobeThreeJS() {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    mountRef.current.appendChild(renderer.domElement);
+    
+    if (mountRef.current) {
+      mountRef.current.innerHTML = ''; // Force clear stale canvases from StrictMode
+      mountRef.current.appendChild(renderer.domElement);
+    }
 
     const updateSize = () => {
       if (!container) return;

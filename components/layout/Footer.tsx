@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="flex flex-col space-y-6">
             <Link href="/#home">
               <Image
-                src="/logo.jpeg"
+                src="/logo(1).png"
                 alt="Celestio 3.0"
                 width={180}
                 height={72}
