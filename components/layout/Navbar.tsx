@@ -70,7 +70,7 @@ export default function Navbar() {
                alt="Celestio 3.0"
                width={220}
                height={88}
-               className="object-contain h-7 md:h-10 w-auto transform scale-[2] origin-left ml-2 md:ml-4"
+               className="object-contain h-7 md:h-10 w-auto transform scale-[3] origin-left ml-4 md:ml-6"
                priority
             />
           </a>
@@ -125,7 +125,7 @@ export default function Navbar() {
                 alt="Celestio 3.0" 
                 width={200} 
                 height={80} 
-                className="object-contain h-8 w-auto transform scale-[2] origin-left ml-4" 
+                className="object-contain h-8 w-auto transform scale-[3] origin-left ml-6" 
               />
               <button
                 onClick={() => { setIsOpen(false); playClick(); }}
