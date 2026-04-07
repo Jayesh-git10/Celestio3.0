@@ -248,6 +248,7 @@ export default function CosmicRunner() {
                 <div className="flex gap-8">
                   <button
                     onClick={(e) => { e.stopPropagation(); startGame("Xavier"); }}
+                    onTouchStart={(e) => { e.stopPropagation(); startGame("Xavier"); }}
                     className="hover:scale-110 active:scale-95 transition-transform"
                   >
                     <img src={faces.Xavier} alt="Xavier" className="w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_12px_#00FFFF]" />
@@ -255,6 +256,7 @@ export default function CosmicRunner() {
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); startGame("Alakh"); }}
+                    onTouchStart={(e) => { e.stopPropagation(); startGame("Alakh"); }}
                     className="hover:scale-110 active:scale-95 transition-transform"
                   >
                     <img src={faces.Alakh} alt="Alakh" className="w-14 h-14 md:w-20 md:h-20 object-contain drop-shadow-[0_0_12px_#FF00FF]" />
