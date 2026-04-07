@@ -11,9 +11,11 @@ const faces = {
   Alakh: "/face/alakh_face.png"
 };
 
-// Constants for game physics
-const GRAVITY = 1.6;
-const JUMP_VELOCITY = -20;
+// Constants for game physics (desktop)
+const GRAVITY_DESKTOP = 1.6;
+const GRAVITY_MOBILE  = 1.0;
+const JUMP_DESKTOP    = -20;
+const JUMP_MOBILE     = -13;
 const GROUND_Y = 0;
 
 interface Obstacle {
@@ -56,7 +58,8 @@ export default function CosmicRunner() {
   const jump = useCallback(() => {
     if (gameState !== "playing") return;
     if (!physics.current.isJumping) {
-      physics.current.velocity = JUMP_VELOCITY;
+      const isMobile = (gameContainerRef.current?.offsetWidth ?? 800) < 500;
+      physics.current.velocity = isMobile ? JUMP_MOBILE : JUMP_DESKTOP;
       physics.current.isJumping = true;
       playClick();
     }
@@ -93,7 +96,8 @@ export default function CosmicRunner() {
     const p = physics.current;
 
     // 1. Player Physics
-    p.velocity += GRAVITY;
+    const isMobilePhysics = getContainerWidth() < 500;
+    p.velocity += isMobilePhysics ? GRAVITY_MOBILE : GRAVITY_DESKTOP;
     p.y -= p.velocity;
     if (p.y <= GROUND_Y) {
       p.y = GROUND_Y;
