@@ -65,12 +65,13 @@ export default function CosmicRunner() {
   const startGame = (char: CharacterCode) => {
     setCharacter(char);
     setGameState("playing");
+    const isMobile = (gameContainerRef.current?.offsetWidth ?? 800) < 500;
     physics.current = {
       y: GROUND_Y,
       velocity: 0,
       isJumping: false,
       score: 0,
-      speed: 6,
+      speed: isMobile ? 3.5 : 6, // Slower initial speed on mobile
       frameCount: 0,
       obstacles: [],
       obstacleIdCounter: 0,
@@ -105,7 +106,8 @@ export default function CosmicRunner() {
 
     // 2. Continuous acceleration & dynamic spawning
     p.frameCount++;
-    p.speed += 0.01;
+    const isMobile = getContainerWidth() < 500;
+    p.speed += isMobile ? 0.004 : 0.01; // Gentler acceleration on mobile
 
     if (p.frameCount >= p.nextSpawnFrame) {
       const gapFrames = Math.floor(400 / p.speed) + Math.floor(Math.random() * 40);
@@ -183,16 +185,16 @@ export default function CosmicRunner() {
     return () => window.removeEventListener("keydown", onKey);
   }, [gameState, jump]);
 
-  // ── Touch (mobile jump) ──
+  // ── Touch (mobile: tap anywhere on screen to jump) ──
   useEffect(() => {
-    const el = gameContainerRef.current;
-    if (!el) return;
     const onTouch = (e: TouchEvent) => {
-      e.preventDefault(); // block scroll
-      if (gameState === "playing") jump();
+      if (gameState === "playing") {
+        e.preventDefault();
+        jump();
+      }
     };
-    el.addEventListener("touchstart", onTouch, { passive: false });
-    return () => el.removeEventListener("touchstart", onTouch);
+    document.addEventListener("touchstart", onTouch, { passive: false });
+    return () => document.removeEventListener("touchstart", onTouch);
   }, [gameState, jump]);
 
   // ── Game Loop ──
