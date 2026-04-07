@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
-import CustomCursor from "@/components/ui/CustomCursor";
 import StarBackground from "@/components/ui/StarBackground";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -33,7 +32,6 @@ export default function RootLayout({
       <body className="min-h-screen bg-background relative overflow-x-hidden" suppressHydrationWarning>
         <StarBackground />
         <SmoothScroll>
-          <CustomCursor />
           {children}
         </SmoothScroll>
       </body>
