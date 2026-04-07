@@ -88,7 +88,7 @@ export default function Timeline() {
                 </motion.div>
 
                 {/* Timeline Dot (Adaptive Alignment) */}
-                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+                <div className="absolute left-[9px] md:left-1/2 md:-translate-x-1/2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center -translate-x-1/2">
                    <div className="relative flex items-center justify-center w-[18px] md:w-[24px]">
                       {/* High-fidelity Energy Ball: Aqua over Purple glow */}
                       <div className={`w-3.5 h-3.5 md:w-5 md:h-5 rounded-full bg-gradient-to-br from-[#00FFFF] to-[#7928CA] shadow-[0_0_15px_#00FFFF,0_0_30px_#7928CA] animate-pulse transition-all duration-500`} />

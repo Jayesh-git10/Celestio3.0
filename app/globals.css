@@ -83,6 +83,14 @@ body {
   .will-change-transform {
     will-change: transform;
   }
+
+  .mobile-safe-px {
+    @apply px-6 sm:px-12 md:px-24;
+  }
+
+  .section-spacing {
+    @apply py-20 md:py-32;
+  }
 }
 
 /* ── Custom Animations ── */

@@ -45,28 +45,28 @@ export default function Hero() {
             {/* Glow under text */}
             <div className="absolute inset-0 bg-nebula-core/20 blur-[30px] md:blur-[50px] mix-blend-screen opacity-50 z-[-1]" />
             
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-heading font-black text-white leading-[0.9] md:leading-[0.85] tracking-tighter drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]">
+            <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-[8.5rem] font-heading font-black text-white leading-[0.9] md:leading-[0.85] tracking-tighter drop-shadow-[0_0_25px_rgba(255,255,255,0.1)] uppercase">
               CELESTIO<br />
               <span className="text-gradient drop-shadow-[0_0_40px_rgba(121,40,202,0.5)]">3.0</span>
             </h1>
           </motion.div>
-
+ 
           {/* Tagline Reveal */}
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.6 }}
-            className="text-gray-400 font-sans text-xs md:text-base tracking-[0.2em] md:tracking-[0.35em] uppercase mb-10 md:mb-12 leading-relaxed text-center lg:text-left"
+            className="text-gray-400 font-sans text-[10px] md:text-base tracking-[0.2em] md:tracking-[0.35em] uppercase mb-10 md:mb-12 leading-relaxed text-center lg:text-left px-4 md:px-0"
           >
             WHERE <span className="text-white font-black italic">TECHNOLOGY</span> <br className="md:hidden" /> DANCES WITH <span className="text-white font-black italic">CULTURE</span>.
           </motion.p>
-
+ 
           {/* CTAs Staggered Reveal */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto px-6 md:px-0"
           >
             <button 
               onMouseEnter={playHover}

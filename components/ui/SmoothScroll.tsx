@@ -1,33 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import Lenis from "lenis";
+import React from "react";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.5,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5, // Dampened for better mobile control
-      lerp: 0.06,           // More dampened for expensive cinematic stop
-      syncTouch: true,
-      infinite: false,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
-
-  return <div className="relative w-full">{children}</div>;
+  // Smooth scroll removed as per user request for native scrolling
+  return <>{children}</>;
 }

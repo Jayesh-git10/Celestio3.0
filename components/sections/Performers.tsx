@@ -38,6 +38,7 @@ function TiltCard({ performer, index }: { performer: typeof performers[0], index
       whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
       viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: index * 0.15 }}
+      whileTap={{ scale: 0.98 }}
       className="perspective-1000"
     >
       <motion.div
@@ -46,8 +47,8 @@ function TiltCard({ performer, index }: { performer: typeof performers[0], index
         onMouseLeave={() => { x.set(0.5); y.set(0.5); }}
         onMouseEnter={playHover}
         onClick={playClick}
-        style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
-        className="relative h-[30rem] w-full rounded-2xl overflow-hidden glass-panel border-white/5 hover:border-starlight-cyan/40 hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-500 group cursor-pointer"
+        style={{ rotateY: typeof window !== 'undefined' && window.innerWidth > 768 ? rotateY : 0, rotateX: typeof window !== 'undefined' && window.innerWidth > 768 ? rotateX : 0, transformStyle: "preserve-3d" }}
+        className="relative h-[25rem] md:h-[30rem] w-full rounded-2xl overflow-hidden glass-panel border-white/5 hover:border-starlight-cyan/40 hover:shadow-[0_0_40px_rgba(0,255,255,0.15)] transition-all duration-500 group cursor-pointer"
       >
         <motion.div 
           initial={{ filter: "grayscale(100%)", opacity: 0.4 }}
@@ -60,11 +61,11 @@ function TiltCard({ performer, index }: { performer: typeof performers[0], index
         
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent group-hover:via-background/30 transition-all duration-500 z-10" />
 
-        <div className="absolute inset-0 flex flex-col justify-end p-10 z-20" style={{ transform: "translateZ(50px)" }}>
-          <span className="text-starlight-cyan font-sans tracking-[0.4em] text-[10px] mb-3 uppercase font-black">Archive {performer.year}</span>
-          <h3 className="text-4xl font-heading font-black text-white text-glow mb-3 uppercase tracking-tighter group-hover:scale-105 transition-transform origin-left">{performer.name}</h3>
+        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 z-20" style={{ transform: "translateZ(50px)" }}>
+          <span className="text-starlight-cyan font-sans tracking-[0.4em] text-[8px] md:text-[10px] mb-2 md:mb-3 uppercase font-black">Archive {performer.year}</span>
+          <h3 className="text-2xl md:text-4xl font-heading font-black text-white text-glow mb-2 md:mb-3 uppercase tracking-tighter group-hover:scale-105 transition-transform origin-left">{performer.name}</h3>
           <div className="flex items-center gap-3">
-             <p className="text-xs font-sans text-gray-200 uppercase tracking-widest bg-nebula-core/30 py-1.5 px-5 rounded-full border border-nebula-core/40 backdrop-blur-xl hover:border-starlight-cyan transition-colors">{performer.type}</p>
+             <p className="text-[10px] md:text-xs font-sans text-gray-200 uppercase tracking-widest bg-nebula-core/30 py-1 md:py-1.5 px-4 md:px-5 rounded-full border border-nebula-core/40 backdrop-blur-xl hover:border-starlight-cyan transition-colors">{performer.type}</p>
           </div>
         </div>
       </motion.div>
