@@ -30,11 +30,12 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { name: "Home",        href: "/#home" },
-    { name: "Timeline",    href: "/#events" },
-    { name: "Archives",    href: "/#performers" },
-    { name: "Past Events", href: "/past-events" },
-    { name: "About",       href: "/#about" },
+    { name: "Home",          href: "/#home" },
+    { name: "Timeline",      href: "/#events" },
+    { name: "Registrations", href: "/#registrations" },
+    { name: "Archives",      href: "/#performers" },
+    { name: "Past Events",   href: "/past-events" },
+    { name: "About",         href: "/#about" },
   ];
 
   return (
