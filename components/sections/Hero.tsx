@@ -4,10 +4,17 @@ import { motion } from "framer-motion";
 import GlobeThreeJS from "@/components/ui/Globe";
 import Countdown from "@/components/ui/Countdown";
 import { useSpaceSound } from "@/hooks/use-space-sound";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const router = useRouter()
   const { playHover, playClick } = useSpaceSound();
-
+  const handleClick = () => {
+  playClick();
+  setTimeout(() => {
+    document.getElementById("events")?.scrollIntoView({ behavior: "smooth" });
+  }, 100);
+  };
   return (
     <section id="home" className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-28 md:pt-20">
       
@@ -70,7 +77,7 @@ export default function Hero() {
           >
             <button 
               onMouseEnter={playHover}
-              onClick={playClick}
+              onClick={handleClick}
               className="px-10 py-5 rounded-full text-[#b9d8ff] font-heading font-bold hover:text-white transition-all flex items-center justify-center gap-2 border border-white/10 hover:border-white/40 tracking-[0.2em] uppercase text-[10px] md:text-xs glass-panel shadow-[0_0_30px_rgba(121,40,202,0.2)]"
             >
               Explore Timeline ↓

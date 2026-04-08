@@ -45,6 +45,13 @@ const activeEvents = [
     link: "https://unstop.com/events/poetry-competition-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1671588",
     icon: "✍️",
     description: "Spin verses that capture the essence of the digital nebula."
+  },
+  {
+    name: "BrandQuest",
+    category: "Technical",
+    link: "https://unstop.com/hackathons/brandquest-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1672195",
+    icon: "✍️",
+    description: "Unleash your creativity and strategic thinking to conquer the world of branding."
   }
 ];
 
@@ -53,19 +60,19 @@ export default function Events() {
 
   return (
     <section id="registrations" className="py-24 md:py-32 bg-transparent relative z-10 overflow-hidden">
-      
-      {/* ── Background Ambience ── */}
+
+      {/* Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] bg-starlight-cyan/5 rounded-full blur-[150px] pointer-events-none mix-blend-screen opacity-30" />
 
       <div className="max-w-7xl mx-auto px-6 relative">
-        
-        {/* Section Header */}
+
+        {/* Header */}
         <motion.div
-           initial={{ opacity: 0, y: -20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: false, amount: 0.3 }}
-           transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-           className="text-center mb-20"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+          className="text-center mb-20"
         >
           <span className="text-starlight-cyan font-logo text-xs tracking-[0.4em] uppercase mb-4 block">
             ✦ Mission Control
@@ -78,7 +85,7 @@ export default function Events() {
           </p>
         </motion.div>
 
-        {/* ── Registration Grid ── */}
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
           {activeEvents.map((event, idx) => (
             <motion.div
@@ -87,17 +94,21 @@ export default function Events() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: idx * 0.1 }}
-              className="group perspective-1000 transform-gpu will-change-transform"
+
+              className={`group perspective-1000 transform-gpu will-change-transform
+                ${activeEvents.length === 7 && idx === activeEvents.length - 1 ? "lg:col-start-2" : ""}
+              `}
             >
-              <div 
+              <div
                 className="relative glass-panel p-8 rounded-3xl border-white/5 hover:border-starlight-cyan/30 transition-all duration-500 h-full flex flex-col justify-between hover:shadow-[0_0_40px_rgba(0,255,255,0.1)] group-hover:-translate-y-2"
                 onMouseEnter={playHover}
               >
-                {/* Visual Accent */}
+                {/* Icon */}
                 <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity duration-500 text-3xl">
-                   {event.icon}
+                  {event.icon}
                 </div>
 
+                {/* Content */}
                 <div className="relative z-10">
                   <span className="text-starlight-cyan font-sans text-[10px] font-black uppercase tracking-[0.3em] mb-4 block opacity-60 group-hover:opacity-100 transition-opacity">
                     {event.category}
@@ -110,6 +121,7 @@ export default function Events() {
                   </p>
                 </div>
 
+                {/* Button */}
                 <a
                   href={event.link}
                   target="_blank"

@@ -18,7 +18,11 @@ export const metadata: Metadata = {
   title: "Celestio 3.0 | Where Technology Dances With Culture",
   description: "The official annual fest of IIIT Ranchi.",
   icons: {
-    icon: "/logo(1).png",
+    icon: [
+      { url: "/favicon.jpeg", type: "image/jpeg", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.jpeg",
+    apple: "/favicon.jpeg",
   },
 };
 
