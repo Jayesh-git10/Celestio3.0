@@ -8,49 +8,49 @@ const activeEvents = [
     name: "Gen-AI Sprint Hackathon",
     category: "Technical",
     link: "https://unstop.com/hackathons/gen-ai-sprint-hackathon-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1671573",
-    icon: "⚡",
+    icon: "/clubs/ml.png",
     description: "Build the future with generative AI in this high-octane sprint challenge."
   },
   {
     name: "Ramp Walk by Estillo",
     category: "Cultural",
     link: "https://unstop.com/events/ramp-walk-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1670523",
-    icon: "🎭",
+    icon: "/clubs/estillo.jpeg",
     description: "Showcase your style and charisma on the interstellar runway."
   },
   {
     name: "Dance Competition",
     category: "Cultural",
     link: "https://unstop.com/events/dance-completion-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1670537",
-    icon: "💃",
+    icon: "/clubs/nrityarashi.jpeg",
     description: "Express your rhythm and energy in this universe-wide battle."
   },
   {
     name: "Singing Competition by SAAZ",
     category: "Cultural",
     link: "https://unstop.com/events/singing-competition-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1670529",
-    icon: "🎤",
+    icon: "/clubs/saaz.jpeg",
     description: "Let your voice resonate through the cosmos in this vocal showdown."
   },
   {
     name: "MUN-Lit Club",
     category: "Academic",
     link: "https://unstop.com/events/celestio-30-mun-lit-club-iiit-ranchi-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1667438",
-    icon: "🏛️",
+    icon: "/clubs/lit-club.jpeg",
     description: "Diplomacy, debate, and literary excellence on a grand stage."
   },
   {
     name: "Poetry Competition",
     category: "Cultural",
     link: "https://unstop.com/events/poetry-competition-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1671588",
-    icon: "✍️",
+    icon: "/clubs/alfaaz.jpeg",
     description: "Spin verses that capture the essence of the digital nebula."
   },
   {
     name: "BrandQuest",
     category: "Technical",
     link: "https://unstop.com/hackathons/brandquest-celestio-30-indian-institute-of-information-technology-iiit-ranchi-1672195",
-    icon: "✍️",
+    icon: "/clubs/arcanum.jpeg",
     description: "Unleash your creativity and strategic thinking to conquer the world of branding."
   }
 ];
@@ -94,7 +94,6 @@ export default function Events() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: idx * 0.1 }}
-
               className={`group perspective-1000 transform-gpu will-change-transform
                 ${activeEvents.length === 7 && idx === activeEvents.length - 1 ? "lg:col-start-2" : ""}
               `}
@@ -103,9 +102,17 @@ export default function Events() {
                 className="relative glass-panel p-8 rounded-3xl border-white/5 hover:border-starlight-cyan/30 transition-all duration-500 h-full flex flex-col justify-between hover:shadow-[0_0_40px_rgba(0,255,255,0.1)] group-hover:-translate-y-2"
                 onMouseEnter={playHover}
               >
-                {/* Icon */}
+                {/* Icon FIXED */}
                 <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity duration-500 text-3xl">
-                  {event.icon}
+                  {typeof event.icon === "string" ? (
+                    <img
+                      src={event.icon}
+                      alt={event.name}
+                      className="w-10 h-10 object-contain"
+                    />
+                  ) : (
+                    event.icon
+                  )}
                 </div>
 
                 {/* Content */}
