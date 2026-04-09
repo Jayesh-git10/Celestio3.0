@@ -103,12 +103,12 @@ export default function Events() {
                 onMouseEnter={playHover}
               >
                 {/* Icon FIXED */}
-                <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity duration-500 text-3xl">
+                <div className="absolute top-0 right-0 p-6 opacity-80 md:opacity-20 md:group-hover:opacity-100 transition-opacity duration-500 text-3xl">
                   {typeof event.icon === "string" ? (
                     <img
                       src={event.icon}
                       alt={event.name}
-                      className="w-10 h-10 object-contain"
+                      className="w-14 h-14 object-contain"
                     />
                   ) : (
                     event.icon
@@ -117,13 +117,13 @@ export default function Events() {
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <span className="text-starlight-cyan font-sans text-[10px] font-black uppercase tracking-[0.3em] mb-4 block opacity-60 group-hover:opacity-100 transition-opacity">
+                  <span className="text-starlight-cyan font-sans text-[10px] font-black uppercase tracking-[0.3em] mb-4 block opacity-100 md:opacity-60 md:group-hover:opacity-100 transition-opacity">
                     {event.category}
                   </span>
                   <h3 className="text-2xl font-heading font-black text-white uppercase tracking-tighter mb-4 pr-10">
                     {event.name}
                   </h3>
-                  <p className="text-gray-400 font-sans text-sm leading-relaxed mb-8 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <p className="text-gray-400 font-sans text-sm leading-relaxed mb-8 opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-opacity">
                     {event.description}
                   </p>
                 </div>
